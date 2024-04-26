@@ -2,6 +2,7 @@
 
 palabra = input("Introduzca una palabra: ")
 mitad = int((len(palabra)) / 2)
+reverso = ""
 
-for i in range(-1):
-    print(palabra[i], end="")
+for i in range(len(palabra),mitad,-1):
+    print(palabra[i-1], end="")
