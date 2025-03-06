@@ -12,3 +12,143 @@
         5. Mostrar la lista de clientes preferentes de la base de datos con su NIF y nombre.
         6. Terminar el programa. """
 
+clientes = {}
+
+def agregar_dni():
+
+    dni = input("Introduzca el DNI: ")
+    return dni
+
+def agregar_datos():
+
+    # Esta función devuelve un diccionario cuya clave es el teléfono y el valor son el resto de los datos personales
+    cliente = {}
+    datos = []
+    tel = input("Introduzca el número de teléfono: ")
+    nombre = input("Introduzca el nombre: ")
+    datos.append(nombre)
+    direccion = input("Introduzca dirección: ")
+    datos.append(direccion)
+    email = input("Introduzca el email: ")
+    datos.append(email)
+    esPref = False
+    pref = input("¿Es preferente? (s/n): ")
+
+    if pref == 's':
+        esPref = True
+        datos.append(esPref)
+    else:
+        esPref = False
+        datos.append(esPref)
+
+    cliente[tel] = datos
+
+    return cliente
+
+def unir_datos():
+    # Esta función crea la clave del diccionario clientes, que es el DNI, y asigna como valor el diccionario cliente
+    dni = agregar_dni()
+    clientes[dni] = agregar_datos()
+
+def mostrar_cliente():
+
+    try :
+        dni = input("Introduzca el DNI del cliente que desea mostrar: ")
+        print(clientes[dni])
+    except Exception:
+        print("No existe ningún cliente con ese dni")
+
+def eliminar_cliente():
+
+    dni = input("Introduzca el dni del cliente que desea eliminar: ")
+    eliminado = clientes.pop(dni)
+    print(f"Ha eliminado al cliente: {eliminado}")
+
+def mostrar_todo():
+
+    for clave, valor in clientes.items():
+        print(clave)
+        for key, value in valor.items():
+            print(key, ":", value)
+
+    """
+    lista = list(clientes.values())
+    print(lista)
+    lista.sort()
+    for valores in lista:
+        print(valores, clientes[valores])
+        
+        elementos = ", ".join(value.keys())
+        print(key, ":", elementos)"""
+
+def mostrar_preferentes():
+
+    for clave, valor in clientes.items():
+        for key, value in valor.items():
+            if value[3] == True:
+                print(clave, key, value)
+
+# MENU
+
+opcion = 0
+
+while opcion > 1 and opcion < 6:
+
+    print("1 - AÑADIR CLIENTE")
+    print("2 - ELIMINAR CLIENTE")
+    print("3 - MOSTRAR CLIENTE")
+    print("4 - LISTAR TODOS LOS CLIENTES")
+    print("5 - LISTAR CLIENTES PREFERENTES")
+    print("6 - SALIR DEL PROGRAMA")
+    opcion = int(input("Escoja una opción: "))
+
+    if opcion == 1:
+        unir_datos()
+    elif opcion == 2:
+        eliminar_cliente()
+    elif opcion == 3:
+        mostrar_cliente()
+    elif opcion == 4:
+        mostrar_todo()
+    elif opcion == 5:
+        mostrar_preferentes()
+
+""" 
+clientes = {}
+opcion = ''
+while opcion != '6':
+    if opcion == '1':
+        nif = input('Introduce NIF del cliente: ')
+        nombre = input('Introduce el nombre del cliente: ')
+        direccion = input('Introduce la dirección del cliente: ')
+        telefono = input('Introduce el teléfono del cliente: ')
+        email = input('Introduce el correo electrónico del cliente: ')
+        vip = input('¿Es un cliente preferente (S/N)? ')
+        cliente = {'nombre':nombre, 'dirección':direccion, 'teléfono':telefono, 'email':email, 'preferente':vip=='S'}
+        clientes[nif] = cliente
+    if opcion == '2':
+        nif = input('Introduce NIF del cliente: ')
+        if nif in clientes:
+            del clientes[nif]
+        else:
+            print('No existe el cliente con el nif', nif)
+    if opcion == '3':
+        nif = input('Introduce NIF del cliente: ')
+        if nif in clientes:
+            print('NIF:', nif)
+            for clave, valor in clientes[nif].items():
+                print(clave.title() + ':', valor)
+        else:
+            print('No existe el cliente con el nif', nif)
+    if opcion == '4':
+        print('Lista de clientes')
+        for clave, valor in clientes.items():
+            print(clave, valor['nombre'])
+    if opcion == '5':
+        print('Lista de clientes preferentes')
+        for clave, valor in clientes.items():
+            if valor['preferente']:
+                print(clave, valor['nombre'])
+    opcion = input('Menú de opciones\n(1) Añadir cliente\n(2) Eliminar cliente\n(3) Mostrar cliente\n(4) Listar clientes
+    \n(5) Listar clientes preferentes\n(6) Terminar\nElige una opción:')
+"""
